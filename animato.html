@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio | Ingegneria & Coding</title>
+    <style>
+        /* Variabili di sistema per personalizzazione rapida */
+        :root {
+            --bg-color: #0d1117;
+            --text-main: #c9d1d9;
+            --accent-neon: #00ff00; /* Verde terminale/circuito */
+            --accent-secondary: #58a6ff;
+            --font-mono: 'Courier New', Courier, monospace;
+        }
+
+        body, html {
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: var(--font-mono);
+            overflow-x: hidden;
+        }
+
+        /* Effetto particellare / Circuito di sfondo */
+        .background-grid {
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            background-image: 
+                linear-gradient(rgba(0, 255, 0, 0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 255, 0, 0.05) 1px, transparent 1px);
+            background-size: 30px 30px;
+            z-index: -1;
+            animation: pulse-grid 4s infinite alternate;
+        }
+
+        @keyframes pulse-grid {
+            0% { opacity: 0.5; }
+            100% { opacity: 1; }
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 50px 20px;
+        }
+
+        /* Header con animazione a ingranaggio */
+        header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .gear-icon {
+            font-size: 3rem;
+            display: inline-block;
+            color: var(--accent-secondary);
+            animation: spin 6s linear infinite;
+        }
+
+        @keyframes spin { 100% { transform: rotate(360deg); } }
+
+        /* Effetto Typing */
+        .typing-container {
+            display: inline-block;
+            font-size: 1.5rem;
+            color: var(--accent-neon);
+            border-right: 2px solid var(--accent-neon);
+            white-space: nowrap;
+            overflow: hidden;
+            animation: blink-caret 0.75s step-end infinite;
+        }
+
+        @keyframes blink-caret {
+            from, to { border-color: transparent }
+            50% { border-color: var(--accent-neon); }
+        }
+
+        /* Sezione Competenze */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        .skill-tag {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--accent-secondary);
+            padding: 10px;
+            text-align: center;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+            cursor: default;
+        }
+
+        .skill-tag:hover {
+            background: var(--accent-secondary);
+            color: var(--bg-color);
+            box-shadow: 0 0 15px var(--accent-secondary);
+            transform: translateY(-3px);
+        }
+
+        /* Sezione Chi Sono */
+        .card {
+            background: rgba(255, 255, 255, 0.02);
+            border-left: 4px solid var(--accent-neon);
+            padding: 20px;
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+        
+        a {
+            color: var(--accent-neon);
+            text-decoration: none;
+        }
+        
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="background-grid"></div>
+    
+    <div class="container">
+        <header>
+            <div class="gear-icon">⚙️</div>
+            <h1>>_ Ciao, sono [Il Tuo Nome]</h1>
+            <div class="typing-container" id="typewriter"></div>
+        </header>
+
+        <section class="card">
+            <h2>~/chi_sono.txt</h2>
+            <p>Studente di Ingegneria Elettronica presso l'Università della Calabria (Unical).<br>
+            Il mio percorso si muove all'intersezione tra hardware e software. Appassionato di motori, progettazione elettronica e architetture di sistema.</p>
+            <p><strong>Ambiente operativo:</strong> Arch Linux / Distro Debian-based</p>
+        </section>
+
+        <section class="card" style="border-left-color: var(--accent-secondary);">
+            <h2>~/stack_tecnologico</h2>
+            <div class="skills-grid">
+                <div class="skill-tag">Python</div>
+                <div class="skill-tag">C</div>
+                <div class="skill-tag">Assembly</div>
+                <div class="skill-tag">MATLAB</div>
+                <div class="skill-tag">Wolfram Mathematica</div>
+                <div class="skill-tag">PHP</div>
+                <div class="skill-tag">HTML/CSS</div>
+            </div>
+        </section>
+
+        <section class="card">
+            <h2>~/progetti_in_evidenza</h2>
+            <p>In questa sezione potrai collegare i tuoi repository più interessanti. Ad esempio:</p>
+            <ul>
+                <li><a href="#">[Progetto 1]</a> - Script di automazione o analisi segnali.</li>
+                <li><a href="#">[Progetto 2]</a> - Sviluppo firmware o interfacciamento hardware.</li>
+            </ul>
+        </section>
+    </div>
+
+    <script>
+        // Logica per l'effetto macchina da scrivere
+        const texts = [
+            "Ingegnere Elettronico in formazione",
+            "Appassionato di Motori & Coding",
+            "Architetture hardware e software"
+        ];
+        let count = 0;
+        let index = 0;
+        let currentText = '';
+        let letter = '';
+
+        (function type() {
+            if (count === texts.length) {
+                count = 0; // Loop infinito
+            }
+            currentText = texts[count];
+            letter = currentText.slice(0, ++index);
+
+            document.getElementById('typewriter').textContent = letter;
+            
+            let typeSpeed = 100;
+
+            if (letter.length === currentText.length) {
+                typeSpeed = 2000; // Pausa a fine frase
+                index = 0;
+                count++;
+            }
+
+            setTimeout(type, typeSpeed);
+        }());
+    </script>
+</body>
+</html>
